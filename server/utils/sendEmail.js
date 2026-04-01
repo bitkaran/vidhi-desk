@@ -1,6 +1,10 @@
 // for-lawyers/server/utils/sendEmail.js
 const nodemailer = require("nodemailer");
 const sendEmail = async (options) => {
+  if(!process.env.EMAIL_PASS){
+    console.warn("EMAIL_PASS is not set in environment variables. Email sending will fail.");
+    return;
+  }
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

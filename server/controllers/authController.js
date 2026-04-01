@@ -73,7 +73,7 @@ exports.registerUser = async (req, res) => {
       email: lowerEmail,
       password: hashedPassword,
       otp: hashedOTP,
-      otpExpires: Date.now() + 10 * 60 * 1000, 
+      otpExpires: Date.now() + 10 * 60 * 1000,
       isVerified: false,
     });
 
