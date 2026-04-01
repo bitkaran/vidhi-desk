@@ -1,0 +1,77 @@
+@config "../tailwind.config.js";
+@import "tailwindcss";
+
+.rdt-wrapper * {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.rdt-wrapper .rdt_TableRow {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3) !important; /* slate-400 */
+}
+
+.rdt-wrapper .rdt_TableHeadRow {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4) !important;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+.mobile-card {
+  @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-sm rounded-2xl;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.touch-press {
+  transition:
+    transform 0.1s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.2s;
+}
+.touch-press:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.28s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity:0 }
+  to { opacity:1 }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease;
+}
+
