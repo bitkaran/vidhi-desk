@@ -393,7 +393,7 @@ function Settings({ theme, onToggleTheme }) {
                                 <img
                                   src={
                                     previewObj ||
-                                    `http://localhost:5000${profileData.profilePicture}`
+                                    `https://vidhi-desk.onrender.com${profileData.profilePicture}`
                                   }
                                   alt="Profile"
                                   className="w-full h-full object-cover"

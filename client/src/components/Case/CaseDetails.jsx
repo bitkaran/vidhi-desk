@@ -758,7 +758,7 @@ transition-all duration-200 ease-out
                         className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl group hover:border-blue-200 transition"
                       >
                         <a
-                          href={`http://localhost:5000${doc}`}
+                          href={`https://vidhi-desk.onrender.com${doc}`}
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 overflow-hidden flex-1"
@@ -772,7 +772,7 @@ transition-all duration-200 ease-out
                         </a>
                         <div className="flex items-center gap-2 ml-3">
                           <a
-                            href={`http://localhost:5000${doc}`}
+                            href={`https://vidhi-desk.onrender.com${doc}`}
                             target="_blank"
                             rel="noreferrer"
                             className="p-2 text-slate-400 hover:text-blue-600 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700"
@@ -1132,7 +1132,7 @@ transition-all duration-200 ease-out
                       </p>
                       {col.attachment && (
                         <a
-                          href={`http://localhost:5000${col.attachment}`}
+                          href={`https://vidhi-desk.onrender.com${col.attachment}`}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-blue-600 hover:underline"

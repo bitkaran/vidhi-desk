@@ -138,7 +138,7 @@ function TableSection({ data, refreshData }) {
                 <div className="flex gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 w-full">
                   {row.attachment && (
                     <a
-                      href={`http://localhost:5000${row.attachment}`}
+                      href={`https://vidhi-desk.onrender.com${row.attachment}`}
                       target="_blank"
                       rel="noreferrer"
                       className="flex-1 py-2 flex justify-center items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 rounded-xl transition"
@@ -199,7 +199,7 @@ function TableSection({ data, refreshData }) {
           <div className="flex gap-2">
             {row.attachment && (
               <a
-                href={`http://localhost:5000${row.attachment}`}
+                href={`https://vidhi-desk.onrender.com${row.attachment}`}
                 target="_blank"
                 rel="noreferrer"
                 title="View Receipt"

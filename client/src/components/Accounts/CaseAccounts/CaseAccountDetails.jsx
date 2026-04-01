@@ -202,7 +202,7 @@ function CaseAccountDetails() {
           <div className="flex gap-2">
             {row.attachment && (
               <a
-                href={`http://localhost:5000${row.attachment}`}
+                href={`https://vidhi-desk.onrender.com${row.attachment}`}
                 target="_blank"
                 rel="noreferrer"
                 title="View Proof"
@@ -445,7 +445,7 @@ function CaseAccountDetails() {
 
                           {col.attachment ? (
                             <a
-                              href={`http://localhost:5000${col.attachment}`}
+                              href={`https://vidhi-desk.onrender.com${col.attachment}`}
                               target="_blank"
                               rel="noreferrer"
                               className="py-2 flex items-center justify-center gap-1 text-xs font-bold text-blue-700 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50 rounded-lg transition"

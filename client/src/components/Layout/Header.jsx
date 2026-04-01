@@ -235,7 +235,7 @@ function Header({
             <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden ring-2 ring-transparent group-hover:ring-blue-500 transition flex items-center justify-center">
               {profile?.profilePicture ? (
                 <img
-                  src={`http://localhost:5000${profile.profilePicture}`}
+                  src={`https://vidhi-desk.onrender.com${profile.profilePicture}`}
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
