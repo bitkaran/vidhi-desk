@@ -994,12 +994,12 @@ transition-all duration-200 ease-out
                         </div>
                       )}
                     </div>
-                    <button
+                    {/* <button
                       onClick={() => navigate(`/clients/details/${client._id}`)}
                       className="w-full mt-4 py-2 bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                     >
                       View Full Profile
-                    </button>
+                    </button> */}
                   </div>
                 ))}
               </div>
