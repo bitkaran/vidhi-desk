@@ -9,22 +9,63 @@ import {
 } from "recharts";
 import React from "react";
 
+const getFinancialYearLabel = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+
+  if (month >= 4) {
+    return `${year}-${String(year + 1).slice(2)}`;
+  } else {
+    return `${year - 1}-${String(year).slice(2)}`;
+  }
+};
+
+const getFinancialYearData = (data) => {
+  const order = [
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+  ];
+
+  return order.map((month) => {
+    return (
+      data.find((item) => item.month === month) || {
+        month,
+        collection: 0,
+      }
+    );
+  });
+};
+
 function CollectionChart({ chartData }) {
+  const fyLabel = getFinancialYearLabel();
+  const financialData = getFinancialYearData(chartData);
+
   return (
     <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-200/50 dark:border-slate-700/50 p-5 md:p-6 shadow-sm h-full">
       <div className="mb-6">
         <h3 className="text-lg md:text-xl font-bold text-slate-800 dark:text-white">
-          Annual Collection
+          Financial Year {fyLabel}
         </h3>
         <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">
-          Monthly revenue breakdown for the current year
+          Monthly revenue from April to March
         </p>
       </div>
 
       <div className="h-64 md:h-[320px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={chartData}
+            data={financialData}
             margin={{ top: 20, right: 10, left: -20, bottom: 0 }}
           >
             <CartesianGrid
