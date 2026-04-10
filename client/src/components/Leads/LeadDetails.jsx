@@ -422,7 +422,7 @@ function LeadDetails() {
                     >
                       <option value="Open">Open</option>
                       <option value="File Received">File Received</option>
-                      <option value="Not Interested">Not Interested</option>
+                      <option value="Declined">Not Interested</option>
                     </select>
                   </div>
                   <button
