@@ -37,13 +37,13 @@ export const ToastProvider = ({ children }) => {
           clearInterval(intervalRef.current);
           return 0;
         }
-        return prev - 2;
+        return prev - 6;
       });
     }, 60);
 
     timeoutRef.current = setTimeout(() => {
       setToast(null);
-    }, 3000);
+    }, 1000);
 
     if (navigator.vibrate) navigator.vibrate(40);
   }, []);

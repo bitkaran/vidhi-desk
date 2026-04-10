@@ -124,7 +124,7 @@ exports.addFeeCollection = async (req, res) => {
     if (!date || !mode || !amount)
       return res
         .status(400)
-        .json({ success: false, message: "Date, Mode, and Amount required" });
+        .json({ success: false, message: "Date, mode, and amount are required" });
 
     const singleCase = await Case.findOne({
       _id: req.params.id,
@@ -163,7 +163,7 @@ exports.addFeeCollection = async (req, res) => {
 exports.addFeeDue = async (req, res) => {
   try {
     const { date, amount, remark } = req.body;
-    if (!date || !amount) return error(res, "Date and Amount required", 400);
+    if (!date || !amount) return error(res, "Date and amount are required", 400);
 
     const singleCase = await Case.findOne({
       _id: req.params.id,

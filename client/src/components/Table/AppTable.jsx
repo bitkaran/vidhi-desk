@@ -12,7 +12,7 @@ function AppTable({
   rowsPerPageOptions = [5, 10, 20],
   noDataText = "No data available",
   searchable = true,
-  searchPlaceholder = "Search...", // ✅ dynamic placeholder
+  searchPlaceholder = "Search...", 
 }) {
   const isDark = useDarkMode();
   const [filterText, setFilterText] = useState("");
@@ -115,7 +115,7 @@ function AppTable({
       <DataTable
         key={isDark ? "dark" : "light"}
         columns={columns}
-        data={filteredData} // ✅ filtered data
+        data={filteredData}
         pagination={pagination}
         paginationPerPage={perPage}
         paginationRowsPerPageOptions={rowsPerPageOptions}
