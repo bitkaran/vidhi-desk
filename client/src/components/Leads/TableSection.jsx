@@ -134,17 +134,33 @@ function TableSection() {
             </div>
 
             {isMobile && (
-              <div className="flex flex-col gap-1 mt-1.5">
+              <div className="flex flex-col gap-2 mt-2">
+                {/* Status Badge */}
+                <div>
+                  <span
+                    className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${getStatusColor(
+                      row.status,
+                    )}`}
+                  >
+                    {row.status}
+                  </span>
+                </div>
+
                 {/* Court + Case Type */}
                 <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                   <Landmark size={13} className="opacity-70" />
                   <span>
                     {row.court || "N/A"} •{" "}
-                    <span className="font-medium text-slate-700 dark:text-slate-300 inline-flex  gap-1">
+                    <span className="font-medium text-slate-700 dark:text-slate-300 inline-flex gap-1">
                       <FileText size={13} className="opacity-70" />
                       {row.caseType || "N/A"}
                     </span>
                   </span>
+                </div>
+
+                {/* Phone */}
+                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+                  📞 {row.phone}
                 </div>
 
                 {/* Follow Up Date */}
@@ -201,30 +217,30 @@ function TableSection() {
               })
             : "-",
       },
-      {
-        name: "Action",
-        width: "110px",
-        cell: (row) => (
-          <div className="flex justify-center gap-1">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/leads/edit/${row._id}`);
-              }}
-              className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg text-sm hover:scale-105 transition"
-            >
-              <Pencil className="w-4 h-4" />
-            </button>
-            <button
-              onClick={(e) => handleDelete(row._id, e)}
-              className="flex items-center gap-1 px-2 py-1 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg text-sm hover:scale-105 transition"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ),
-        button: true,
-      },
+      // {
+      //   name: "Action",
+      //   width: "110px",
+      //   cell: (row) => (
+      //     <div className="flex justify-center gap-1">
+      //       <button
+      //         onClick={(e) => {
+      //           e.stopPropagation();
+      //           navigate(`/leads/edit/${row._id}`);
+      //         }}
+      //         className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg text-sm hover:scale-105 transition"
+      //       >
+      //         <Pencil className="w-4 h-4" />
+      //       </button>
+      //       <button
+      //         onClick={(e) => handleDelete(row._id, e)}
+      //         className="flex items-center gap-1 px-2 py-1 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg text-sm hover:scale-105 transition"
+      //       >
+      //         <Trash2 className="w-4 h-4" />
+      //       </button>
+      //     </div>
+      //   ),
+      //   button: true,
+      // },
     ],
     [isMobile, leads],
   );
