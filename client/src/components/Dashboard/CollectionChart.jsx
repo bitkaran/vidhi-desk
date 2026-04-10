@@ -14,7 +14,7 @@ function CollectionChart({ chartData }) {
     <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-200/50 dark:border-slate-700/50 p-5 md:p-6 shadow-sm h-full">
       <div className="mb-6">
         <h3 className="text-lg md:text-xl font-bold text-slate-800 dark:text-white">
-          Annual Collection Trend
+          Annual Collection
         </h3>
         <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mt-1">
           Monthly revenue breakdown for the current year

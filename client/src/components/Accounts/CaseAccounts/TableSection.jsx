@@ -3,39 +3,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Plus, Trash2, Pencil } from "lucide-react";
 import { AppTable } from "@/components/Table";
 
-/* 🔹 Dummy Task Data */
-const tableData = [
-  {
-    id: "T-001",
-    project: "CRM System",
-    task: "UI Design",
-    client: "ABC Corp",
-    assigned: "Ritesh",
-    due: "2024-02-20",
-    status: "Pending",
-    priority: "High",
-  },
-  {
-    id: "T-002",
-    project: "Website Revamp",
-    task: "Backend API",
-    client: "XYZ Pvt Ltd",
-    assigned: "Neha",
-    due: "2024-02-25",
-    status: "Completed",
-    priority: "Medium",
-  },
-  {
-    id: "T-003",
-    project: "Mobile App",
-    task: "Testing",
-    client: "LegalTech",
-    assigned: "Aman",
-    due: "2024-03-01",
-    status: "In Progress",
-    priority: "Low",
-  },
-];
 
 function TasksTable() {
   const [isMobile, setIsMobile] = useState(false);

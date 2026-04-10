@@ -1,6 +1,7 @@
 // Table/AppTable.jsx
 import React, { useState, useMemo } from "react";
 import DataTable from "react-data-table-component";
+import { X } from "lucide-react";
 import useDarkMode from "./useDarkMode";
 
 function AppTable({
@@ -78,24 +79,36 @@ function AppTable({
       {/* 🔹 Search Input */}
       {searchable && (
         <div className="flex justify-end p-2 md:p-4">
-          <input
-            type="text"
-            placeholder={searchPlaceholder}
-            value={filterText}
-            onChange={(e) => setFilterText(e.target.value)}
-            autoComplete="off"
-            spellCheck="false"
-            className={`
-              !px-4 !py-3 !rounded-lg !w-full md:!w-64
-              !text-sm !placeholder-slate-400 dark:!placeholder-slate-500
-              focus:!outline-none focus:!ring-2 focus:!ring-blue-500
-              dark:!bg-slate-800 bg-slate-100
-              dark:!text-white
-              !border-none
-              shadow-md dark:shadow-none
-              transition-all
-            `}
-          />
+          <div className="relative w-full md:w-64">
+            <input
+              type="text"
+              placeholder={searchPlaceholder}
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              autoComplete="off"
+              spellCheck="false"
+              className={`
+          !px-4 !py-3 pr-10 !rounded-lg !w-full
+          !text-sm !placeholder-slate-400 dark:!placeholder-slate-500
+          focus:!outline-none focus:!ring-2 focus:!ring-blue-500
+          dark:!bg-slate-800 bg-slate-100
+          dark:!text-white
+          !border-none
+          shadow-md dark:shadow-none
+          transition-all
+        `}
+            />
+
+            {/* ❌ Clear Button */}
+            {filterText && (
+              <button
+                onClick={() => setFilterText("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
         </div>
       )}
 
