@@ -47,7 +47,7 @@ function Register() {
     setLoading(true);
 
     try {
-      const { data } = await register(formData);
+      const { data } = await regiswwwter(formData);
 
       if (data.success) {
         // 🚨 FIX: DO NOT call loginAction here. The user is NOT verified yet.

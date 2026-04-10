@@ -78,7 +78,7 @@ exports.registerUser = async (req, res) => {
     });
 
     // console.log(`🔐 DEV OTP for ${lowerEmail}: ${otp}`);
-
+www
     try {
       await sendEmail({
         email: user.email,

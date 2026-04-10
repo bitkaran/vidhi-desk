@@ -125,10 +125,10 @@ function Header({
             <h1 className="text-lg md:text-2xl font-black text-slate-800 dark:text-white leading-tight">
               {pageTitle}
             </h1>
-            <p className="hidden md:block text-sm text-slate-500 dark:text-slate-400">
+            {/* <p className="hidden md:block text-sm text-slate-500 dark:text-slate-400">
               Welcome back, {profile?.fullName?.split(" ")[0] || "Advocate"}!
               Here's what's happening today.
-            </p>
+            </p> */}
           </div>
         </div>
 
