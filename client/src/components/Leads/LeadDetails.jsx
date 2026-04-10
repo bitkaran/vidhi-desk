@@ -420,7 +420,6 @@ function LeadDetails() {
                       onChange={(e) => setNewStatus(e.target.value)}
                       className="w-full mt-1.5 px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40"
                     >
-                      <option value="Fresh">Fresh</option>
                       <option value="Open">Open</option>
                       <option value="File Received">File Received</option>
                       <option value="Not Interested">Not Interested</option>
