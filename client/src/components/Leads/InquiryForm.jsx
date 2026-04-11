@@ -22,6 +22,7 @@ function InquiryForm({ mode = "add", leadId }) {
 
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(mode === "edit");
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
