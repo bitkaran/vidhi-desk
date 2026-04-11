@@ -279,7 +279,7 @@ function CaseDetails() {
         setCaseData(data.data);
         setIsClientSheetOpen(false);
         setSelectedClientToAdd("");
-        setAvailableClients([]);
+        setAvailableClients([]); // Reset to refetch fresh list next time
         showToast("Client linked successfully");
       }
     } catch (err) {
@@ -295,7 +295,7 @@ function CaseDetails() {
       const { data } = await unlinkClientFromCase(caseData._id, clientId);
       if (data.success) {
         setCaseData(data.data);
-        setAvailableClients([]);
+        setAvailableClients([]); // Reset
         showToast("Client removed");
       }
     } catch (err) {
@@ -388,10 +388,9 @@ function CaseDetails() {
         </div>
       }
     >
-      <div className="max-w-4xl mx-auto space-y-4 pb-20 md:pb-10">
-        {/* 🔹 FIXED / STICKY TABS */}
-        {/* Adjusted top-[60px] to sit perfectly under the Header navbar. Added backdrop blur so content smoothly scrolls beneath it. */}
-        <div className="sticky top-[60px] md:top-[73px] z-20 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-md pt-2 pb-2 -mx-4 px-4 md:-mx-0 md:px-0 shadow-sm border-b border-slate-200/50 dark:border-slate-800/50">
+      <div className="max-w-4xl mx-auto space-y-4">
+        {/* 🔹 STICKY TABS WRAPPER */}
+        <div className="sticky top-0 z-30 pt-2 pb-2 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-xl -mx-4 px-4 md:mx-0 md:px-0">
           <div className="overflow-x-auto no-scrollbar">
             <div className="flex gap-2">
               {tabs.map((tab) => {
@@ -402,12 +401,11 @@ function CaseDetails() {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`
-                      px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap
-                      transition-all duration-200 ease-out flex-shrink-0
+                      px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 ease-out
                       ${
                         isActive
-                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md shadow-blue-500/20"
-                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
+                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                       }
                     `}
                   >
@@ -420,7 +418,7 @@ function CaseDetails() {
         </div>
 
         {activeTab === "overview" && (
-          <div className="space-y-4 animate-fadeIn">
+          <>
             {/* CARD 1: Case Header & Status */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
               {/* HEADER */}
@@ -641,7 +639,7 @@ function CaseDetails() {
                 )}
               </div>
             </div>
-          </div>
+          </>
         )}
 
         {/* TIMELINE TAB */}
@@ -1122,7 +1120,7 @@ function CaseDetails() {
                         <span className="font-bold text-emerald-600 text-lg">
                           +{formatCurrency(col.amount)}
                         </span>
-                        <span className="text-xs font-bold bg-white dark:bg-slate-900 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700">
+                        <span className="text-xs font-bold bg-white dark:bg-slate-900 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700 dark:text-slate-500">
                           {col.mode}
                         </span>
                       </div>
@@ -1156,6 +1154,20 @@ function CaseDetails() {
                 <h3 className="font-bold text-slate-800 dark:text-white">
                   Dues & Committed Fees
                 </h3>
+                {/* <button
+                  onClick={() => {
+                    setFeeInput(
+                      String(caseData.caseAmount || "0").replace(
+                        /[^0-9.-]+/g,
+                        "",
+                      ),
+                    );
+                    setIsFeeSheetOpen(true);
+                  }}
+                  className="flex items-center gap-2 py-2 px-4 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-sm font-semibold transition hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                >
+                  <Pencil size={16} /> Update Committed Fees
+                </button> */}
               </div>
 
               <div className="space-y-3">
@@ -1185,6 +1197,54 @@ function CaseDetails() {
                 )}
               </div>
             </div>
+
+            {/* BOTTOM SHEET FOR UPDATING COMMITTED FEES */}
+            {isFeeSheetOpen && (
+              <div
+                className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-end md:items-center justify-center animate-fadeIn"
+                onClick={() => setIsFeeSheetOpen(false)}
+              >
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className="w-full max-w-sm mx-auto bg-white dark:bg-slate-900 md:rounded-3xl rounded-t-3xl p-6 border border-slate-200 dark:border-slate-800 animate-slideUp space-y-4"
+                >
+                  <div className="flex justify-between items-center">
+                    <h3 className="font-bold text-lg text-slate-900 dark:text-white">
+                      Update Committed Fees
+                    </h3>
+                    <button
+                      onClick={() => setIsFeeSheetOpen(false)}
+                      className="p-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-500"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                  <div>
+                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                      Base Case Amount (₹)
+                    </label>
+                    <input
+                      type="number"
+                      value={feeInput}
+                      onChange={(e) => setFeeInput(e.target.value)}
+                      className="w-full px-4 py-3 mt-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm outline-none"
+                      placeholder="Enter updated fee amount"
+                    />
+                  </div>
+                  <button
+                    disabled={actionLoading}
+                    onClick={handleUpdateFee}
+                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex justify-center mt-2 transition"
+                  >
+                    {actionLoading ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      "Save Changes"
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
