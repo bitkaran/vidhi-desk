@@ -22,7 +22,7 @@ function InquiryForm({ mode = "add", leadId }) {
 
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(mode === "edit");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     clientName: "",
@@ -62,17 +62,37 @@ function InquiryForm({ mode = "add", leadId }) {
     }
   };
 
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!formData.clientName.trim()) {
+      newErrors.clientName = "Client name is required";
+    }
+
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Invalid phone number (10 digits required)";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   /* ---------------- Form Change ---------------- */
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (error) setError("");
+
+    // ✅ clear error of that field
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
   };
 
   /* ---------------- Submit ---------------- */
   const handleSubmit = async () => {
-    if (!formData.clientName || !formData.phone) {
-      return showToast("Client Name and Phone Number are required", "error");
-    }
+    if (!validateForm()) return; // ❌ stop API call
 
     setLoading(true);
 
@@ -159,6 +179,11 @@ function InquiryForm({ mode = "add", leadId }) {
                   placeholder="e.g. Rahul Sharma"
                   className={`${inputClass} pl-10`}
                 />
+                {errors.clientName && (
+                  <p className="text-xs text-red-500 mt-1">
+                    {errors.clientName}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -174,6 +199,9 @@ function InquiryForm({ mode = "add", leadId }) {
                   placeholder="+91 98765 43210"
                   className={`${inputClass} pl-10`}
                 />
+                {errors.phone && (
+                  <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
 

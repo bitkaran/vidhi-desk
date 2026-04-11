@@ -1,6 +1,7 @@
 // for-lawyers/server/controllers/leadController.js
 const Lead = require("../models/Lead");
 const { success, error } = require("../utils/response");
+const { isValidPhone, isRequired } = require("../utils/validators");
 
 exports.createLead = async (req, res) => {
   try {
@@ -15,8 +16,17 @@ exports.createLead = async (req, res) => {
       remarks,
     } = req.body;
 
+    // ✅ VALIDATIONS
+    if (!isRequired(clientName)) {
+      return error(res, "Client name is required", 400);
+    }
+
+    if (!isValidPhone(phone)) {
+      return error(res, "Invalid phone number (must be 10 digits)", 400);
+    }
+
     const lead = await Lead.create({
-      user: req.user._id, 
+      user: req.user._id,
       clientName,
       phone,
       court,
@@ -74,6 +84,11 @@ exports.updateLead = async (req, res) => {
     let lead = await Lead.findOne({ _id: req.params.id, user: req.user._id });
 
     if (!lead) return error(res, "Lead not found", 404);
+
+    // ✅ VALIDATION (only if phone is being updated)
+    if (req.body.phone && !isValidPhone(req.body.phone)) {
+      return error(res, "Invalid phone number (must be 10 digits)", 400);
+    }
 
     lead = await Lead.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
