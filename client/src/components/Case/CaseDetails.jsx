@@ -388,9 +388,10 @@ function CaseDetails() {
         </div>
       }
     >
-      <div className="max-w-4xl mx-auto space-y-4">
+      <div className="max-w-4xl mx-auto space-y-4 relative">
+        
         {/* 🔹 STICKY TABS WRAPPER */}
-        <div className="sticky top-0 z-30 pt-2 pb-2 bg-slate-50/95 dark:bg-slate-950/95 backdrop-blur-xl -mx-4 px-4 md:mx-0 md:px-0">
+        <div className="sticky top-0 z-30 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 -mx-4 px-4 md:mx-0 md:px-0 mb-4">
           <div className="overflow-x-auto no-scrollbar">
             <div className="flex gap-2">
               {tabs.map((tab) => {
@@ -494,14 +495,17 @@ function CaseDetails() {
                     <p className="font-semibold text-red-600 dark:text-red-400 mt-1">
                       ₹{" "}
                       {(() => {
+                        // Extract base fee
                         const baseFeeStr = String(
                           caseData.caseAmount || "0",
                         ).replace(/[^0-9.-]+/g, "");
                         const baseFee = parseFloat(baseFeeStr) || 0;
+                        // Add Extra Dues
                         const extraDues = (caseData.feeDues || []).reduce(
                           (a, b) => a + (Number(b.amount) || 0),
                           0,
                         );
+                        // Subtract Collections
                         const collected = (
                           caseData.feeCollections || []
                         ).reduce((a, b) => a + (Number(b.amount) || 0), 0);
@@ -756,7 +760,7 @@ function CaseDetails() {
                         className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl group hover:border-blue-200 transition"
                       >
                         <a
-                          href={`https://vidhi-desk.onrender.com${doc}`}
+                          href={`http://localhost:5000${doc}`}
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 overflow-hidden flex-1"
@@ -770,7 +774,7 @@ function CaseDetails() {
                         </a>
                         <div className="flex items-center gap-2 ml-3">
                           <a
-                            href={`https://vidhi-desk.onrender.com${doc}`}
+                            href={`http://localhost:5000${doc}`}
                             target="_blank"
                             rel="noreferrer"
                             className="p-2 text-slate-400 hover:text-blue-600 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700"
@@ -1130,7 +1134,7 @@ function CaseDetails() {
                       </p>
                       {col.attachment && (
                         <a
-                          href={`https://vidhi-desk.onrender.com${col.attachment}`}
+                          href={`http://localhost:5000${col.attachment}`}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-blue-600 hover:underline"
@@ -1154,20 +1158,6 @@ function CaseDetails() {
                 <h3 className="font-bold text-slate-800 dark:text-white">
                   Dues & Committed Fees
                 </h3>
-                {/* <button
-                  onClick={() => {
-                    setFeeInput(
-                      String(caseData.caseAmount || "0").replace(
-                        /[^0-9.-]+/g,
-                        "",
-                      ),
-                    );
-                    setIsFeeSheetOpen(true);
-                  }}
-                  className="flex items-center gap-2 py-2 px-4 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-sm font-semibold transition hover:bg-blue-100 dark:hover:bg-blue-900/50"
-                >
-                  <Pencil size={16} /> Update Committed Fees
-                </button> */}
               </div>
 
               <div className="space-y-3">
