@@ -121,8 +121,6 @@ function TableSection() {
                     <Mail size={14} />
                     <span>{row.email || "No Email"}</span>
                   </div>
-
-                  <div className="flex items-center gap-1.5 mt-2"></div>
                 </div>
               </div>
             ) : (
@@ -138,7 +136,25 @@ function TableSection() {
           </div>
         ),
       },
-
+      {
+        name: "Phone",
+        selector: (row) => row.phone || "Not Available",
+        omit: isMobile,
+      },
+      {
+        name: "Email",
+        selector: (row) => row.email || "Not Available",
+        omit: isMobile,
+      },
+      {
+        name: "Category",
+        omit: isMobile,
+        cell: (row) => (
+          <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+            {row.category || "General"}
+          </span>
+        ),
+      },
       {
         name: "Designation",
         selector: (row) => row.designation,
