@@ -94,7 +94,7 @@ function TableSection() {
         width: isMobile ? "auto" : "250px",
         cell: (row) => (
           <div
-            onClick={() => navigate(`/clients/details/${row._id}`)}
+            onClick={() => navigate(`/team/details/${row._id}`)}
             className="w-full cursor-pointer py-2"
           >
             {isMobile ? (
@@ -151,6 +151,7 @@ function TableSection() {
         omit: isMobile,
         cell: (row) => (
           <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+
             {row.category || "General"}
           </span>
         ),
