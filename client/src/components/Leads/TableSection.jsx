@@ -65,13 +65,16 @@ function TableSection() {
 
   // 🔹 Delete Lead Logic
   const handleDelete = async (id, e) => {
-    e.stopPropagation(); // Prevent opening lead details
+    e.stopPropagation();
+
     if (!window.confirm("Are you sure you want to delete this lead?")) return;
 
     try {
-      await deleteLead(id);
-      setLeads(leads.filter((lead) => lead._id !== id));
-      showToast(data.message || "Lead deleted", "success");
+      const { data } = await deleteLead(id); // ✅ FIX
+
+      setLeads((prev) => prev.filter((lead) => lead._id !== id));
+
+      showToast(data.message || "Lead deleted", "success"); 
     } catch (error) {
       showToast("Failed to delete lead", "error");
     }
