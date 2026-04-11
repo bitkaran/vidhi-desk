@@ -174,7 +174,7 @@ function LeadDetails() {
         rightContent={
           <button
             onClick={() => navigate(`/leads/edit/${lead._id}`)}
-            className="p-2 rounded-full bg-blue-600 text-white shadow-md hover:bg-blue-700 transition active:scale-95"
+            className="p-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md transition active:scale-95"
           >
             <Pencil size={18} />
           </button>
@@ -205,15 +205,11 @@ function LeadDetails() {
           <div className={cardClass}>
             {/* HEADER SECTION */}
             <div className="bg-slate-100 dark:bg-slate-800/60 p-6 md:p-7 border-b border-slate-200 dark:border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              
               <div>
-                
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 mb-3">
-                  
                   <Tag size={14} /> {lead.leadType || "General Lead"}
                 </span>
                 <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-                  
                   {lead.clientName}
                 </h1>
               </div>
@@ -221,9 +217,7 @@ function LeadDetails() {
                 className="flex items-center justify-between px-4 py-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm"
                 onClick={() => setActiveSheet("status")}
               >
-                
                 <div className="flex items-center gap-2">
-                  
                   {lead.status === "File Received" ? (
                     <CheckCircle2 className="text-emerald-500" size={20} />
                   ) : lead.status === "Not Interested" ? (
@@ -232,13 +226,10 @@ function LeadDetails() {
                     <Clock className="text-amber-500" size={20} />
                   )}
                   <div>
-                    
                     <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wide leading-none">
-                      
                       Status
                     </p>
                     <p className="font-bold text-md text-slate-800 dark:text-white leading-tight">
-                      
                       {lead.status}
                     </p>
                   </div>
@@ -246,7 +237,6 @@ function LeadDetails() {
                 <Pencil size={20} className="text-slate-400" />
               </div>
             </div>
-
 
             {/* BODY SECTION */}
             <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -395,8 +385,10 @@ function LeadDetails() {
                       className="w-full mt-1.5 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40 resize-none"
                     />
                   </div>
+
                   <div>
                     <label className={labelClass}>Next Follow Up Date</label>
+
                     <input
                       type="date"
                       value={followUpData.nextDate}
@@ -413,7 +405,18 @@ function LeadDetails() {
                       }
                       className="w-full mt-1.5 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/40"
                     />
+
+                    {/* 👇 formatted display */}
+                    {followUpData.nextDate && (
+                      <p className="mt-2 text-sm text-slate-500">
+                        Selected:{" "}
+                        {new Date(followUpData.nextDate).toLocaleDateString(
+                          "en-GB",
+                        )}
+                      </p>
+                    )}
                   </div>
+
                   <button
                     onClick={handleAddFollowUp}
                     disabled={actionLoading}
