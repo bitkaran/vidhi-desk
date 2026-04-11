@@ -205,46 +205,48 @@ function LeadDetails() {
           <div className={cardClass}>
             {/* HEADER SECTION */}
             <div className="bg-slate-100 dark:bg-slate-800/60 p-6 md:p-7 border-b border-slate-200 dark:border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              {/* LEFT SIDE */}
+              
               <div>
+                
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 mb-3">
+                  
                   <Tag size={14} /> {lead.leadType || "General Lead"}
                 </span>
                 <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+                  
                   {lead.clientName}
                 </h1>
               </div>
-
-              {/* RIGHT SIDE */}
-              <div className="flex items-center gap-3">
-                {/* STATUS CARD */}
-                <div
-                  className="flex items-center justify-between px-4 py-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm cursor-pointer"
-                  onClick={() => setActiveSheet("status")}
-                >
-                  <div className="flex items-center gap-2">
-                    {lead.status === "File Received" ? (
-                      <CheckCircle2 className="text-emerald-500" size={20} />
-                    ) : lead.status === "Not Interested" ? (
-                      <XCircle className="text-red-500" size={20} />
-                    ) : (
-                      <Clock className="text-amber-500" size={20} />
-                    )}
-
-                    <div>
-                      <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wide leading-none">
-                        Status
-                      </p>
-                      <p className="font-bold text-md text-slate-800 dark:text-white leading-tight">
-                        {lead.status}
-                      </p>
-                    </div>
+              <div
+                className="flex items-center justify-between px-4 py-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm"
+                onClick={() => setActiveSheet("status")}
+              >
+                
+                <div className="flex items-center gap-2">
+                  
+                  {lead.status === "File Received" ? (
+                    <CheckCircle2 className="text-emerald-500" size={20} />
+                  ) : lead.status === "Not Interested" ? (
+                    <XCircle className="text-red-500" size={20} />
+                  ) : (
+                    <Clock className="text-amber-500" size={20} />
+                  )}
+                  <div>
+                    
+                    <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wide leading-none">
+                      
+                      Status
+                    </p>
+                    <p className="font-bold text-md text-slate-800 dark:text-white leading-tight">
+                      
+                      {lead.status}
+                    </p>
                   </div>
-
-                  <Pencil size={20} className="text-slate-400" />
                 </div>
+                <Pencil size={20} className="text-slate-400" />
               </div>
             </div>
+
 
             {/* BODY SECTION */}
             <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
