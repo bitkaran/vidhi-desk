@@ -120,76 +120,55 @@ function TableSection() {
   const columns = useMemo(
     () => [
       {
-        name: "Customer",
-        selector: (row) => row.clientName,
-        sortable: true,
-        grow: isMobile ? 1 : 0,
-        width: isMobile ? "auto" : "250px",
+        name: isMobile ? "Case Details" : "Case",
+        grow: 3,
         cell: (row) => (
           <div
-            onClick={() => navigate(`/leads/details/${row._id}`)}
+            onClick={() => navigate(`/cases/details/${row._id}`)}
             className="w-full cursor-pointer py-2"
           >
             {isMobile ? (
+              /* 🔹 SAME LEADS CARD PATTERN */
               <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
                 {/* 🔹 Top Row */}
                 <div className="flex justify-between items-start">
                   <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
-                    {row.clientName}
+                    {row.caseTitle}
                   </h3>
-
-                  <span
-                    className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${getStatusColor(
-                      row.status,
-                    )}`}
-                  >
-                    {row.status}
-                  </span>
                 </div>
 
                 {/* 🔹 Middle Info */}
                 <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 space-y-1">
                   <div className="flex items-center gap-1.5">
-                    <Landmark size={13} />
+                    <span className="font-medium text-slate-700 dark:text-slate-300">
+                      Court:
+                    </span>
                     <span>{row.court || "N/A"}</span>
                   </div>
 
                   <div className="flex items-center gap-1.5">
-                    <FileText size={13} />
                     <span className="font-medium text-slate-700 dark:text-slate-300">
-                      {row.caseType || "N/A"}
+                      Type:
                     </span>
-                  </div>
-                </div>
-
-                {/* 🔹 Bottom Row */}
-                <div className="flex justify-between items-center mt-4 text-xs">
-                  <div className="text-slate-600 dark:text-slate-400 font-medium">
-                    📞 {row.phone}
-                  </div>
-
-                  <div className="flex items-center gap-1 text-slate-400">
-                    <Calendar size={12} />
-                    <span>
-                      {row.nextFollowUpDate
-                        ? new Date(row.nextFollowUpDate).toLocaleDateString(
-                            "en-GB",
-                            {
-                              day: "2-digit",
-                              month: "short",
-                            },
-                          )
-                        : "No follow-up"}
-                    </span>
+                    <span>{row.caseType || "N/A"}</span>
                   </div>
                 </div>
               </div>
             ) : (
-              /* 🔹 Desktop same as before */
-              <div className="flex items-center py-2">
-                <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
-                  {row.clientName}
-                </span>
+              /* 🔹 Desktop unchanged */
+              <div className="flex flex-col gap-1 py-3 text-sm w-full">
+                <div className="font-bold text-[16px] md:text-[17px] text-slate-900 dark:text-white hover:text-blue-600 transition-colors">
+                  {row.caseTitle}
+                </div>
+
+                <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
+                  <span className="font-medium">Court:</span>{" "}
+                  {row.court || "N/A"}
+                </div>
+
+                <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
+                  <span className="font-medium">Type:</span> {row.caseType}
+                </div>
               </div>
             )}
           </div>
