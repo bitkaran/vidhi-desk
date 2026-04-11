@@ -388,11 +388,12 @@ function CaseDetails() {
         </div>
       }
     >
-      <div className="max-w-4xl mx-auto space-y-4">
-        {/* Tabs */}
-        <div className="sticky top-[64px] z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+      <div className="max-w-4xl mx-auto space-y-4 pb-20 md:pb-10">
+        {/* 🔹 FIXED / STICKY TABS */}
+        {/* Adjusted top-[60px] to sit perfectly under the Header navbar. Added backdrop blur so content smoothly scrolls beneath it. */}
+        <div className="sticky top-[60px] md:top-[73px] z-20 bg-slate-50/90 dark:bg-slate-950/90 backdrop-blur-md pt-2 pb-2 -mx-4 px-4 md:-mx-0 md:px-0 shadow-sm border-b border-slate-200/50 dark:border-slate-800/50">
           <div className="overflow-x-auto no-scrollbar">
-            <div className="flex gap-2 pb-2 px-4 pt-2">
+            <div className="flex gap-2">
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
 
@@ -401,14 +402,14 @@ function CaseDetails() {
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`
-            px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap
-transition-all duration-200 ease-out
-            ${
-              isActive
-                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
-                : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-            }
-          `}
+                      px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap
+                      transition-all duration-200 ease-out flex-shrink-0
+                      ${
+                        isActive
+                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md shadow-blue-500/20"
+                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                      }
+                    `}
                   >
                     {tab.label}
                   </button>
@@ -419,7 +420,7 @@ transition-all duration-200 ease-out
         </div>
 
         {activeTab === "overview" && (
-          <>
+          <div className="space-y-4 animate-fadeIn">
             {/* CARD 1: Case Header & Status */}
             <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
               {/* HEADER */}
@@ -495,17 +496,14 @@ transition-all duration-200 ease-out
                     <p className="font-semibold text-red-600 dark:text-red-400 mt-1">
                       ₹{" "}
                       {(() => {
-                        // Extract base fee
                         const baseFeeStr = String(
                           caseData.caseAmount || "0",
                         ).replace(/[^0-9.-]+/g, "");
                         const baseFee = parseFloat(baseFeeStr) || 0;
-                        // Add Extra Dues
                         const extraDues = (caseData.feeDues || []).reduce(
                           (a, b) => a + (Number(b.amount) || 0),
                           0,
                         );
-                        // Subtract Collections
                         const collected = (
                           caseData.feeCollections || []
                         ).reduce((a, b) => a + (Number(b.amount) || 0), 0);
@@ -643,7 +641,7 @@ transition-all duration-200 ease-out
                 )}
               </div>
             </div>
-          </>
+          </div>
         )}
 
         {/* TIMELINE TAB */}
@@ -996,12 +994,12 @@ transition-all duration-200 ease-out
                         </div>
                       )}
                     </div>
-                    {/* <button
+                    <button
                       onClick={() => navigate(`/clients/details/${client._id}`)}
                       className="w-full mt-4 py-2 bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                     >
                       View Full Profile
-                    </button> */}
+                    </button>
                   </div>
                 ))}
               </div>
@@ -1124,7 +1122,7 @@ transition-all duration-200 ease-out
                         <span className="font-bold text-emerald-600 text-lg">
                           +{formatCurrency(col.amount)}
                         </span>
-                        <span className="text-xs font-bold bg-white dark:bg-slate-900 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700 dark:text-slate-500">
+                        <span className="text-xs font-bold bg-white dark:bg-slate-900 px-2 py-1 rounded-md shadow-sm border border-slate-200 dark:border-slate-700">
                           {col.mode}
                         </span>
                       </div>
@@ -1158,20 +1156,6 @@ transition-all duration-200 ease-out
                 <h3 className="font-bold text-slate-800 dark:text-white">
                   Dues & Committed Fees
                 </h3>
-                {/* <button
-                  onClick={() => {
-                    setFeeInput(
-                      String(caseData.caseAmount || "0").replace(
-                        /[^0-9.-]+/g,
-                        "",
-                      ),
-                    );
-                    setIsFeeSheetOpen(true);
-                  }}
-                  className="flex items-center gap-2 py-2 px-4 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-sm font-semibold transition hover:bg-blue-100 dark:hover:bg-blue-900/50"
-                >
-                  <Pencil size={16} /> Update Committed Fees
-                </button> */}
               </div>
 
               <div className="space-y-3">
@@ -1201,54 +1185,6 @@ transition-all duration-200 ease-out
                 )}
               </div>
             </div>
-
-            {/* BOTTOM SHEET FOR UPDATING COMMITTED FEES */}
-            {isFeeSheetOpen && (
-              <div
-                className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-sm flex items-end md:items-center justify-center animate-fadeIn"
-                onClick={() => setIsFeeSheetOpen(false)}
-              >
-                <div
-                  onClick={(e) => e.stopPropagation()}
-                  className="w-full max-w-sm mx-auto bg-white dark:bg-slate-900 md:rounded-3xl rounded-t-3xl p-6 border border-slate-200 dark:border-slate-800 animate-slideUp space-y-4"
-                >
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-bold text-lg text-slate-900 dark:text-white">
-                      Update Committed Fees
-                    </h3>
-                    <button
-                      onClick={() => setIsFeeSheetOpen(false)}
-                      className="p-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-500"
-                    >
-                      <X size={18} />
-                    </button>
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-                      Base Case Amount (₹)
-                    </label>
-                    <input
-                      type="number"
-                      value={feeInput}
-                      onChange={(e) => setFeeInput(e.target.value)}
-                      className="w-full px-4 py-3 mt-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm outline-none"
-                      placeholder="Enter updated fee amount"
-                    />
-                  </div>
-                  <button
-                    disabled={actionLoading}
-                    onClick={handleUpdateFee}
-                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex justify-center mt-2 transition"
-                  >
-                    {actionLoading ? (
-                      <Loader2 className="animate-spin" />
-                    ) : (
-                      "Save Changes"
-                    )}
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </div>
