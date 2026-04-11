@@ -132,27 +132,27 @@ function TableSection() {
       },
       { name: "Phone No.", selector: (row) => row.phone, omit: isMobile },
       { name: "Email", selector: (row) => row.email || "-", omit: isMobile },
-      {
-        name: "Action",
-        width: "110px",
-        cell: (row) => (
-          <div className="flex justify-center gap-1">
-            <button
-              onClick={() => navigate(`/clients/edit/${row._id}`)}
-              className="flex items-center gap-1 p-2 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg text-sm hover:scale-105 transition"
-            >
-              <Pencil className="w-4 h-4" />
-            </button>
-            <button
-              onClick={(e) => handleDelete(row._id, e)}
-              className="flex items-center gap-1 p-2 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg text-sm hover:scale-105 transition"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ),
-        button: true,
-      },
+      // {
+      //   name: "Action",
+      //   width: "110px",
+      //   cell: (row) => (
+      //     <div className="flex justify-center gap-1">
+      //       <button
+      //         onClick={() => navigate(`/clients/edit/${row._id}`)}
+      //         className="flex items-center gap-1 p-2 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg text-sm hover:scale-105 transition"
+      //       >
+      //         <Pencil className="w-4 h-4" />
+      //       </button>
+      //       <button
+      //         onClick={(e) => handleDelete(row._id, e)}
+      //         className="flex items-center gap-1 p-2 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg text-sm hover:scale-105 transition"
+      //       >
+      //         <Trash2 className="w-4 h-4" />
+      //       </button>
+      //     </div>
+      //   ),
+      //   button: true,
+      // },
     ],
     [isMobile, clients],
   );
