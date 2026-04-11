@@ -128,7 +128,7 @@ function TableSection() {
         cell: (row) => (
           <div
             onClick={() => navigate(`/leads/details/${row._id}`)}
-            className="w-full cursor-pointer"
+            className="w-full cursor-pointer py-2"
           >
             {isMobile ? (
               <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
