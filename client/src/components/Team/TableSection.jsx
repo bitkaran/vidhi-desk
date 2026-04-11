@@ -1,6 +1,14 @@
 // src/components/Team/TableSection.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import { Plus, Pencil, Trash2, Loader2, Phone, Briefcase, Mail } from "lucide-react";
+import {
+  Plus,
+  Pencil,
+  Trash2,
+  Loader2,
+  Phone,
+  Briefcase,
+  Mail,
+} from "lucide-react";
 import { AppTable } from "@/components/Table";
 import { useNavigate } from "react-router-dom";
 import { getTeams, deleteTeam } from "../../services/api";
@@ -96,6 +104,10 @@ function TableSection() {
                   <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
                     {row.name}
                   </h3>
+
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+                    {row.category || "General"}
+                  </span>
                 </div>
 
                 {/* 🔹 Middle Info */}
@@ -110,11 +122,7 @@ function TableSection() {
                     <span>{row.email || "No Email"}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
-                      {row.category || "General"}
-                    </span>
-                  </div>
+                  <div className="flex items-center gap-1.5 mt-2"></div>
                 </div>
               </div>
             ) : (
