@@ -81,6 +81,7 @@ function TableSection() {
         width: "80px",
         omit: isMobile,
       },
+
       {
         name: isMobile ? "Client Details" : "Name",
         selector: (row) => row.name,
@@ -90,27 +91,41 @@ function TableSection() {
         cell: (row) => (
           <div
             onClick={() => navigate(`/clients/details/${row._id}`)}
-            className="flex flex-col justify-center py-2 w-full "
+            className="w-full cursor-pointer py-2"
           >
-            <div className="flex items-center justify-between md:justify-start gap-2">
-              <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
-                {row.name}
-              </span>
-            </div>
+            {isMobile ? (
+              /* 🔹 SAME TEAM CARD PATTERN */
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
+                {/* 🔹 Top Row */}
+                <div className="flex justify-between items-start">
+                  <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
+                    {row.name}
+                  </h3>
 
-            {isMobile && (
-              <div className="flex flex-col gap-1 mt-1.5">
-                {/* Phone */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
-                  <Phone size={14} className="opacity-70" />
-                  <span>{row.phone}</span>
+                  <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
+                    {row.category || "General"}
+                  </span>
                 </div>
 
-                {/* Email */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
-                  <Mail size={14} className="opacity-70" />
-                  <span>{row.email || "No Email"}</span>
+                {/* 🔹 Middle Info */}
+                <div className="mt-3 text-xs space-y-1">
+                  <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+                    <Phone size={14} />
+                    <span className="font-medium">{row.phone}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
+                    <Mail size={14} />
+                    <span>{row.email || "No Email"}</span>
+                  </div>
                 </div>
+              </div>
+            ) : (
+              /* 🔹 Desktop unchanged */
+              <div className="flex items-center py-2">
+                <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
+                  {row.name}
+                </span>
               </div>
             )}
           </div>

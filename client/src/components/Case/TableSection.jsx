@@ -131,30 +131,30 @@ function TableSection() {
           );
         },
       },
-      {
-        name: "Action",
-        width: "110px",
-        cell: (row) => (
-          <div className="flex justify-center gap-2">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/cases/edit/${row._id}`);
-              }}
-              className="p-2 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg hover:scale-105 transition"
-            >
-              <Pencil className="w-4 h-4" />
-            </button>
-            <button
-              onClick={(e) => handleDelete(row._id, e)}
-              className="p-2 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg hover:scale-105 transition"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ),
-        button: true,
-      },
+      // {
+      //   name: "Action",
+      //   width: "110px",
+      //   cell: (row) => (
+      //     <div className="flex justify-center gap-2">
+      //       <button
+      //         onClick={(e) => {
+      //           e.stopPropagation();
+      //           navigate(`/cases/edit/${row._id}`);
+      //         }}
+      //         className="p-2 bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 rounded-lg hover:scale-105 transition"
+      //       >
+      //         <Pencil className="w-4 h-4" />
+      //       </button>
+      //       <button
+      //         onClick={(e) => handleDelete(row._id, e)}
+      //         className="p-2 bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 rounded-lg hover:scale-105 transition"
+      //       >
+      //         <Trash2 className="w-4 h-4" />
+      //       </button>
+      //     </div>
+      //   ),
+      //   button: true,
+      // },
     ],
     [isMobile, cases],
   );
