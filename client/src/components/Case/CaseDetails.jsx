@@ -376,7 +376,7 @@ function CaseDetails() {
 
   return (
     <NewPageLayout
-      title="Case Details"
+      title={caseData.caseTitle}
       footer={
         <div className="fixed bottom-0 left-0 w-full md:static flex flex-col md:flex-row gap-3 px-4 py-3 md:px-6 md:py-4 border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-none z-40">
           <button
