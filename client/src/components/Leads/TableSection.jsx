@@ -74,7 +74,7 @@ function TableSection() {
 
       setLeads((prev) => prev.filter((lead) => lead._id !== id));
 
-      showToast(data.message || "Lead deleted", "success"); 
+      showToast(data.message || "Lead deleted", "success");
     } catch (error) {
       showToast("Failed to delete lead", "error");
     }
@@ -128,18 +128,16 @@ function TableSection() {
         cell: (row) => (
           <div
             onClick={() => navigate(`/leads/details/${row._id}`)}
-            className="flex flex-col justify-center cursor-pointer py-2 w-full"
+            className="w-full cursor-pointer"
           >
-            <div className="flex items-center justify-between md:justify-start gap-2">
-              <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
-                {row.clientName}
-              </span>
-            </div>
+            {isMobile ? (
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
+                {/* 🔹 Top Row */}
+                <div className="flex justify-between items-start">
+                  <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
+                    {row.clientName}
+                  </h3>
 
-            {isMobile && (
-              <div className="flex flex-col gap-2 mt-2">
-                {/* Status Badge */}
-                <div>
                   <span
                     className={`text-[10px] px-2.5 py-1 rounded-full font-semibold ${getStatusColor(
                       row.status,
@@ -149,40 +147,49 @@ function TableSection() {
                   </span>
                 </div>
 
-                {/* Court + Case Type */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                  <Landmark size={13} className="opacity-70" />
-                  <span>
-                    {row.court || "N/A"} •{" "}
-                    <span className="font-medium text-slate-700 dark:text-slate-300 inline-flex gap-1">
-                      <FileText size={13} className="opacity-70" />
+                {/* 🔹 Middle Info */}
+                <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                  <div className="flex items-center gap-1.5">
+                    <Landmark size={13} />
+                    <span>{row.court || "N/A"}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <FileText size={13} />
+                    <span className="font-medium text-slate-700 dark:text-slate-300">
                       {row.caseType || "N/A"}
                     </span>
-                  </span>
+                  </div>
                 </div>
 
-                {/* Phone */}
-                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium">
-                  📞 {row.phone}
-                </div>
+                {/* 🔹 Bottom Row */}
+                <div className="flex justify-between items-center mt-4 text-xs">
+                  <div className="text-slate-600 dark:text-slate-400 font-medium">
+                    📞 {row.phone}
+                  </div>
 
-                {/* Follow Up Date */}
-                <div className="flex items-center gap-1.5 text-[11px] text-slate-400 dark:text-slate-500">
-                  <Calendar size={13} className="opacity-70" />
-                  <span>
-                    Follow Up:{" "}
-                    {row.nextFollowUpDate
-                      ? new Date(row.nextFollowUpDate).toLocaleDateString(
-                          "en-GB",
-                          {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          },
-                        )
-                      : "N/A"}
-                  </span>
+                  <div className="flex items-center gap-1 text-slate-400">
+                    <Calendar size={12} />
+                    <span>
+                      {row.nextFollowUpDate
+                        ? new Date(row.nextFollowUpDate).toLocaleDateString(
+                            "en-GB",
+                            {
+                              day: "2-digit",
+                              month: "short",
+                            },
+                          )
+                        : "No follow-up"}
+                    </span>
+                  </div>
                 </div>
+              </div>
+            ) : (
+              /* 🔹 Desktop same as before */
+              <div className="flex items-center py-2">
+                <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
+                  {row.clientName}
+                </span>
               </div>
             )}
           </div>
