@@ -26,7 +26,34 @@ function TeamForm({ mode = "add", teamId }) {
   const [initialLoading, setInitialLoading] = useState(mode === "edit");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const showToast = useToast();
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!formData.title.trim()) {
+      newErrors.title = "Title is required";
+    }
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    }
+
+    if (!formData.phone) {
+      newErrors.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Invalid phone number (10 digits required)";
+    }
+
+    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Invalid email format";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
 
   const [formData, setFormData] = useState({
     title: "",
@@ -67,6 +94,11 @@ function TeamForm({ mode = "add", teamId }) {
   /* ---------------- Change ---------------- */
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+
     if (error) setError("");
   };
 
@@ -74,10 +106,7 @@ function TeamForm({ mode = "add", teamId }) {
 
   /* ---------------- Submit ---------------- */
   const handleSubmit = async () => {
-    if (!formData.title || !formData.name || !formData.phone) {
-      showToast("Title, Name, and Phone are required", "error");
-      return;
-    }
+    if (!validateForm()) return; // ❌ stop API call
 
     setSaving(true);
 
@@ -175,6 +204,9 @@ function TeamForm({ mode = "add", teamId }) {
                   <option value="Miss.">Miss.</option>
                   <option value="Dr.">Dr.</option>
                 </select>
+                {errors.title && (
+                  <p className="text-xs text-red-500 mt-1">{errors.title}</p>
+                )}
               </div>
             </div>
 
@@ -190,6 +222,9 @@ function TeamForm({ mode = "add", teamId }) {
                   placeholder="Enter Full Name"
                   className={`${inputClass} pl-10`}
                 />
+                {errors.name && (
+                  <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+                )}
               </div>
             </div>
 
@@ -205,6 +240,9 @@ function TeamForm({ mode = "add", teamId }) {
                   placeholder="+91 98765 43210"
                   className={`${inputClass} pl-10`}
                 />
+                {errors.phone && (
+                  <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
+                )}
               </div>
             </div>
 
@@ -220,6 +258,9 @@ function TeamForm({ mode = "add", teamId }) {
                   placeholder="example@email.com"
                   className={`${inputClass} pl-10`}
                 />
+                {errors.email && (
+                  <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+                )}
               </div>
             </div>
 

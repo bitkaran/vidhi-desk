@@ -1,16 +1,25 @@
 // for-lawyers/server/controllers/teamController.js
 const Team = require("../models/Team");
-
 const { success, error } = require("../utils/response");
+const { isValidPhone, isValidEmail } = require("../utils/validators");
 
 exports.createTeamMember = async (req, res) => {
   try {
     const { title, name, phone, email, designation, bciRegistration } =
       req.body;
 
-    // Basic Validation
     if (!title || !name || !phone) {
       return error(res, "Title, Name, and Phone are required", 400);
+    }
+
+    // ✅ PHONE validation
+    if (!isValidPhone(phone)) {
+      return error(res, "Invalid phone number format", 400);
+    }
+
+    // ✅ EMAIL validation
+    if (email && !isValidEmail(email)) {
+      return error(res, "Invalid email format", 400);
     }
 
     const existing = await Team.findOne({
@@ -27,7 +36,7 @@ exports.createTeamMember = async (req, res) => {
     }
 
     const teamMember = await Team.create({
-      user: req.user._id, // Attached via authMiddleware
+      user: req.user._id,
       title,
       name,
       phone,
@@ -84,6 +93,16 @@ exports.getTeamMemberById = async (req, res) => {
 // @access  Private
 exports.updateTeamMember = async (req, res) => {
   try {
+    const { phone, email } = req.body;
+
+    if (phone && !isValidPhone(phone)) {
+      return error(res, "Invalid phone number format", 400);
+    }
+
+    if (email && !isValidEmail(email)) {
+      return error(res, "Invalid email format", 400);
+    }
+
     let teamMember = await Team.findOne({
       _id: req.params.id,
       user: req.user._id,
