@@ -1,6 +1,6 @@
 // src/components/Team/TableSection.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import { Plus, Pencil, Trash2, Loader2, Phone, Briefcase } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Phone, Briefcase, Mail } from "lucide-react";
 import { AppTable } from "@/components/Table";
 import { useNavigate } from "react-router-dom";
 import { getTeams, deleteTeam } from "../../services/api";
