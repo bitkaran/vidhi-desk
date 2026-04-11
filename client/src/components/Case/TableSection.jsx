@@ -74,21 +74,76 @@ function TableSection() {
     () => [
       {
         name: isMobile ? "Case Details" : "Case",
-        grow: 3,
+        grow: isMobile ? 1 : 3,
+        width: isMobile ? "auto" : undefined,
         cell: (row) => (
           <div
             onClick={() => navigate(`/cases/details/${row._id}`)}
-            className="flex flex-col gap-1 py-3 text-sm w-full cursor-pointer"
+            className="w-full cursor-pointer py-2"
           >
-            <div className="font-bold text-[16px] md:text-[17px] text-slate-900 dark:text-white hover:text-blue-600 transition-colors">
-              {row.caseTitle}
-            </div>
-            <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
-              <span className="font-medium">Court:</span> {row.court || "N/A"}
-            </div>
-            <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
-              <span className="font-medium">Type:</span> {row.caseType}
-            </div>
+            {isMobile ? (
+              /* 🔹 EXACT SAME LEADS CARD */
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
+                {/* 🔹 Top Row */}
+                <div className="flex justify-between items-start">
+                  <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
+                    {row.caseTitle}
+                  </h3>
+
+                  <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300">
+                    {row.stage || "N/A"}
+                  </span>
+                </div>
+
+                {/* 🔹 Middle Info */}
+                <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                  <div className="flex items-center gap-1.5">
+                    <Landmark size={13} />
+                    <span>{row.court || "N/A"}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <FileText size={13} />
+                    <span className="font-medium text-slate-700 dark:text-slate-300">
+                      {row.caseType || "N/A"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* 🔹 Bottom Row */}
+                <div className="flex justify-between items-center mt-4 text-xs">
+                  <div className="text-slate-600 dark:text-slate-400 font-medium">
+                    ⚖️{" "}
+                    {row.lawyers?.[0]?.lawyerId?.name ||
+                      row.lawyers?.[0]?.lawyerId?.fullName ||
+                      "N/A"}
+                  </div>
+
+                  <div className="flex items-center gap-1 text-slate-400">
+                    <span>
+                      +{row.lawyers?.length > 1 ? row.lawyers.length - 1 : 0}{" "}
+                      team
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* 🔹 Desktop untouched */
+              <div className="flex flex-col gap-1 py-3 text-sm w-full">
+                <div className="font-bold text-[16px] md:text-[17px] text-slate-900 dark:text-white hover:text-blue-600 transition-colors">
+                  {row.caseTitle}
+                </div>
+
+                <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
+                  <span className="font-medium">Court:</span>{" "}
+                  {row.court || "N/A"}
+                </div>
+
+                <div className="text-slate-600 dark:text-slate-400 text-xs md:text-sm">
+                  <span className="font-medium">Type:</span> {row.caseType}
+                </div>
+              </div>
+            )}
           </div>
         ),
       },
