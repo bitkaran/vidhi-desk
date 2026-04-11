@@ -79,72 +79,88 @@ function TableSection() {
   const columns = useMemo(
     () => [
       {
-        name: isMobile ? "Team Details" : "Name",
+        name: "Team Member",
         selector: (row) => row.name,
         sortable: true,
-        grow: 2,
+        grow: isMobile ? 1 : 0,
+        width: isMobile ? "auto" : "250px",
         cell: (row) => (
           <div
             onClick={() => navigate(`/team/details/${row._id}`)}
-            className="flex flex-col py-3 w-full"
+            className="w-full cursor-pointer py-2"
           >
-            <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
-              {row.title} {row.name}
-            </span>
-            {isMobile && (
-              <div className="flex flex-col gap-1 mt-1.5">
-                {/* Designation */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
-                  <Briefcase size={13} className="opacity-70" />
-                  <span>{row.designation}</span>
+            {isMobile ? (
+              <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-sm active:scale-[0.99] transition-all">
+                {/* 🔹 Top Row */}
+                <div className="flex justify-between items-start">
+                  <h3 className="text-[15px] font-semibold text-slate-800 dark:text-white leading-tight">
+                    {row.title} {row.name}
+                  </h3>
+
+                  <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-300">
+                    {row.designation || "General"}
+                  </span>
                 </div>
 
-                {/* Phone */}
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500">
-                  <Phone size={13} className="opacity-70" />
-                  <span>{row.phone}</span>
+                {/* 🔹 Middle Info */}
+                <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                  <div className="flex items-center gap-1.5">
+                    <Briefcase size={13} />
+                    <span>{row.designation || "N/A"}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <Phone size={13} />
+                    <span>{row.phone}</span>
+                  </div>
                 </div>
+              </div>
+            ) : (
+              /* 🔹 Desktop same simple */
+              <div className="flex items-center py-2">
+                <span className="font-semibold text-[15px] text-slate-800 dark:text-slate-100">
+                  {row.title} {row.name}
+                </span>
               </div>
             )}
           </div>
         ),
       },
+
       {
         name: "Designation",
         selector: (row) => row.designation,
-        sortable: true,
         omit: isMobile,
-        width: "180px",
         cell: (row) => (
           <span className="px-2.5 py-1 rounded-md text-xs font-semibold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300">
             {row.designation || "General"}
           </span>
         ),
       },
-      {
-        name: "Action",
-        width: "120px",
-        cell: (row) => (
-          <div className="flex justify-center gap-2">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/team/edit/${row._id}`);
-              }}
-              className="p-2 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 hover:scale-105 transition"
-            >
-              <Pencil className="w-4 h-4" />
-            </button>
-            <button
-              onClick={(e) => handleDelete(row._id, e)}
-              className="p-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 hover:scale-105 transition"
-            >
-              <Trash2 className="w-4 h-4" />
-            </button>
-          </div>
-        ),
-        button: true,
-      },
+      // {
+      //   name: "Action",
+      //   width: "120px",
+      //   cell: (row) => (
+      //     <div className="flex justify-center gap-2">
+      //       <button
+      //         onClick={(e) => {
+      //           e.stopPropagation();
+      //           navigate(`/team/edit/${row._id}`);
+      //         }}
+      //         className="p-2 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300 hover:scale-105 transition"
+      //       >
+      //         <Pencil className="w-4 h-4" />
+      //       </button>
+      //       <button
+      //         onClick={(e) => handleDelete(row._id, e)}
+      //         className="p-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300 hover:scale-105 transition"
+      //       >
+      //         <Trash2 className="w-4 h-4" />
+      //       </button>
+      //     </div>
+      //   ),
+      //   button: true,
+      // },
     ],
     [isMobile, teams],
   );
