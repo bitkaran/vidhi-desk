@@ -1,6 +1,6 @@
 // src/components/Case/TableSection.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Landmark } from "lucide-react";
 import { AppTable } from "@/components/Table";
 import { useNavigate } from "react-router-dom";
 import { getCases, deleteCase } from "../../services/api";
