@@ -62,6 +62,14 @@ function TeamDetails() {
   return (
     <NewPageLayout
       title="Team Details"
+      rightContent={
+        <button
+          onClick={() => navigate(`/team/edit/${team._id}`)}
+          className="p-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md transition active:scale-95"
+        >
+          <Pencil size={18} />
+        </button>
+      }
       footer={
         <div className="fixed bottom-0 left-0 w-full md:static px-4 py-3 md:px-6 md:py-4 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl z-40">
           <div className="max-w-4xl mx-auto">
