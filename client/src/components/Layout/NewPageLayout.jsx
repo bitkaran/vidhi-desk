@@ -3,7 +3,7 @@ import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import useIsMobile from "../../hooks/useIsMobile";
 
-function NewPageLayout({ title, children, footer }) {
+function NewPageLayout({ title, children, footer, rightContent }) {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
@@ -91,7 +91,9 @@ function NewPageLayout({ title, children, footer }) {
             </h2>
           </div>
 
-          <div className="w-9" />
+          <div className="flex items-center justify-end">
+            {rightContent}
+          </div>
         </div>
       </div>
 
@@ -109,6 +111,7 @@ function NewPageLayout({ title, children, footer }) {
             {title}
           </h2>
         </div>
+        <div className="flex items-center gap-3">{rightContent}</div>
       </div>
 
       {/* Content Area (IMPORTANT: same as LeadDetails) */}

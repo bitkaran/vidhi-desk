@@ -171,6 +171,14 @@ function LeadDetails() {
     <>
       <NewPageLayout
         title="Lead Details"
+        rightContent={
+          <button
+            onClick={() => navigate(`/leads/edit/${lead._id}`)}
+            className="p-2 rounded-full bg-blue-600 text-white shadow-md hover:bg-blue-700 transition active:scale-95"
+          >
+            <Pencil size={18} />
+          </button>
+        }
         footer={
           <div className="fixed bottom-0 left-0 w-full px-4 py-4 border-t border-slate-200/50 dark:border-slate-800/50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl z-40">
             <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-3">
@@ -209,15 +217,6 @@ function LeadDetails() {
 
               {/* RIGHT SIDE */}
               <div className="flex items-center gap-3">
-                {/* ✏️ EDIT BUTTON */}
-                <button
-                  onClick={() => navigate(`/leads/edit/${lead._id}`)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold shadow-md transition active:scale-95"
-                >
-                  <Pencil size={16} />
-                  Edit
-                </button>
-
                 {/* STATUS CARD */}
                 <div
                   className="flex items-center justify-between px-4 py-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm cursor-pointer"
@@ -287,7 +286,9 @@ function LeadDetails() {
                   </div>
                   <p className={valueClass}>
                     {lead.nextFollowUpDate
-                      ? new Date(lead.nextFollowUpDate).toLocaleDateString()
+                      ? new Date(lead.nextFollowUpDate).toLocaleDateString(
+                          "en-GB",
+                        )
                       : "Not Scheduled"}
                   </p>
                 </div>
