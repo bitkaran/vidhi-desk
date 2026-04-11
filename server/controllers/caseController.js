@@ -3,7 +3,7 @@ const User = require("../models/User");
 const Team = require("../models/Team");
 const { success, error } = require("../utils/response");
 
-const STAGES = { 
+const STAGES = {
   Criminal: [
     "FIR",
     "Chargesheet",
@@ -39,7 +39,15 @@ const formatLawyersArray = (
 ) => {
   let finalLawyers = [];
 
-  // 1. Add Main Case Lawyer (Must be index 0)
+  // ✅ Normalize teamMembers (MOST IMPORTANT FIX)
+  let teamArray = [];
+  if (teamMembersArray) {
+    teamArray = Array.isArray(teamMembersArray)
+      ? teamMembersArray
+      : [teamMembersArray]; // 👈 single ko array bana diya
+  }
+
+  // 1. Main lawyer
   if (selectedLawyerId) {
     finalLawyers.push({
       lawyerId: selectedLawyerId,
@@ -47,20 +55,17 @@ const formatLawyersArray = (
     });
   }
 
-  // 2. Add Team Members
-  if (Array.isArray(teamMembersArray)) {
-    teamMembersArray.forEach((id) => {
-      if (id !== selectedLawyerId) {
-        // Prevent duplicate with main lawyer
-        finalLawyers.push({
-          lawyerId: id,
-          model: id === mainUserIdStr ? "User" : "Team",
-        });
-      }
-    });
-  }
+  // 2. Team members
+  teamArray.forEach((id) => {
+    if (id !== selectedLawyerId) {
+      finalLawyers.push({
+        lawyerId: id,
+        model: id === mainUserIdStr ? "User" : "Team",
+      });
+    }
+  });
 
-  // 3. Auto-add User: If User is not selected anywhere, force them into the team
+  // 3. Auto-add user
   if (!finalLawyers.some((l) => l.lawyerId.toString() === mainUserIdStr)) {
     finalLawyers.push({ lawyerId: mainUserIdStr, model: "User" });
   }
