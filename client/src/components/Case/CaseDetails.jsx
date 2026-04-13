@@ -279,7 +279,7 @@ function CaseDetails() {
         setCaseData(data.data);
         setIsClientSheetOpen(false);
         setSelectedClientToAdd("");
-        setAvailableClients([]); // Reset to refetch fresh list next time
+        setAvailableClients([]);
         showToast("Client linked successfully");
       }
     } catch (err) {
@@ -295,7 +295,7 @@ function CaseDetails() {
       const { data } = await unlinkClientFromCase(caseData._id, clientId);
       if (data.success) {
         setCaseData(data.data);
-        setAvailableClients([]); // Reset
+        setAvailableClients([]);
         showToast("Client removed");
       }
     } catch (err) {
@@ -388,33 +388,31 @@ function CaseDetails() {
         </div>
       }
     >
-      <div className="max-w-4xl mx-auto space-y-4 relative">
-        
-        {/* 🔹 STICKY TABS WRAPPER */}
-        <div className="sticky top-0 z-30 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 -mx-4 px-4 md:mx-0 md:px-0 mb-4">
-          <div className="overflow-x-auto no-scrollbar">
-            <div className="flex gap-2">
-              {tabs.map((tab) => {
-                const isActive = activeTab === tab.id;
+      <div className="max-w-4xl mx-auto space-y-4">
+        {/* Tabs */}
+        <div className="overflow-x-auto no-scrollbar">
+          <div className="flex gap-2 pb-2">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
 
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`
-                      px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all duration-200 ease-out
-                      ${
-                        isActive
-                          ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
-                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                      }
-                    `}
-                  >
-                    {tab.label}
-                  </button>
-                );
-              })}
-            </div>
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+            px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap
+transition-all duration-200 ease-out
+            ${
+              isActive
+                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
+                : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            }
+          `}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -760,7 +758,7 @@ function CaseDetails() {
                         className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl group hover:border-blue-200 transition"
                       >
                         <a
-                          href={`http://localhost:5000${doc}`}
+                          href={`https://vidhi-desk.onrender.com${doc}`}
                           target="_blank"
                           rel="noreferrer"
                           className="flex items-center gap-3 overflow-hidden flex-1"
@@ -774,7 +772,7 @@ function CaseDetails() {
                         </a>
                         <div className="flex items-center gap-2 ml-3">
                           <a
-                            href={`http://localhost:5000${doc}`}
+                            href={`https://vidhi-desk.onrender.com${doc}`}
                             target="_blank"
                             rel="noreferrer"
                             className="p-2 text-slate-400 hover:text-blue-600 bg-white dark:bg-slate-900 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700"
@@ -996,12 +994,12 @@ function CaseDetails() {
                         </div>
                       )}
                     </div>
-                    <button
+                    {/* <button
                       onClick={() => navigate(`/clients/details/${client._id}`)}
                       className="w-full mt-4 py-2 bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                     >
                       View Full Profile
-                    </button>
+                    </button> */}
                   </div>
                 ))}
               </div>
@@ -1134,7 +1132,7 @@ function CaseDetails() {
                       </p>
                       {col.attachment && (
                         <a
-                          href={`http://localhost:5000${col.attachment}`}
+                          href={`https://vidhi-desk.onrender.com${col.attachment}`}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-blue-600 hover:underline"
@@ -1158,6 +1156,20 @@ function CaseDetails() {
                 <h3 className="font-bold text-slate-800 dark:text-white">
                   Dues & Committed Fees
                 </h3>
+                {/* <button
+                  onClick={() => {
+                    setFeeInput(
+                      String(caseData.caseAmount || "0").replace(
+                        /[^0-9.-]+/g,
+                        "",
+                      ),
+                    );
+                    setIsFeeSheetOpen(true);
+                  }}
+                  className="flex items-center gap-2 py-2 px-4 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl text-sm font-semibold transition hover:bg-blue-100 dark:hover:bg-blue-900/50"
+                >
+                  <Pencil size={16} /> Update Committed Fees
+                </button> */}
               </div>
 
               <div className="space-y-3">
